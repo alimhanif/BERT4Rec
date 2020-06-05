@@ -505,18 +505,18 @@ def main(_):
 
     bert_config = modeling.BertConfig.from_json_file(FLAGS.bert_config_file)
 
-    tf.gfile.MakeDirs(FLAGS.checkpointDir)
+    tf.io.gfile.makedirs(FLAGS.checkpointDir)
 
     train_input_files = []
     for input_pattern in FLAGS.train_input_file.split(","):
-        train_input_files.extend(tf.gfile.Glob(input_pattern))
+        train_input_files.extend(tf.io.gfile.glob(input_pattern))
 
     test_input_files = []
     if FLAGS.test_input_file is None:
         test_input_files = train_input_files
     else:
         for input_pattern in FLAGS.test_input_file.split(","):
-            test_input_files.extend(tf.gfile.Glob(input_pattern))
+            test_input_files.extend(tf.io.gfile.glob(input_pattern))
 
     tf.logging.info("*** train Input Files ***")
     for input_file in train_input_files:
@@ -586,7 +586,7 @@ def main(_):
 
         output_eval_file = os.path.join(FLAGS.checkpointDir,
                                         "eval_results.txt")
-        with tf.gfile.GFile(output_eval_file, "w") as writer:
+        with tf.io.gfile.GFile(output_eval_file, "w") as writer:
             tf.logging.info("***** Eval results *****")
             tf.logging.info(bert_config.to_json_string())
             writer.write(bert_config.to_json_string()+'\n')
