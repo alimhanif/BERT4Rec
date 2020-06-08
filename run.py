@@ -120,7 +120,7 @@ flags.DEFINE_string("user_history_filename", None, "user history filename")
 
 
 
-class EvalHooks(tf.train.SessionRunHook):
+class EvalHooks(tf.estimator.SessionRunHook):
     def __init__(self):
         tf.logging.info('run init')
 
@@ -599,4 +599,4 @@ if __name__ == "__main__":
     flags.mark_flag_as_required("bert_config_file")
     flags.mark_flag_as_required("checkpointDir")
     flags.mark_flag_as_required("user_history_filename")
-    tf.app.run()
+    tf.compat.v1.app.run()
