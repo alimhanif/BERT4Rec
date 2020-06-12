@@ -496,7 +496,7 @@ def gen_samples(data,
 
 
 def main():
-    tf.logging.set_verbosity(tf.logging.DEBUG)
+    tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.DEBUG)
     
     max_seq_length = FLAGS.max_seq_length
     max_predictions_per_seq = FLAGS.max_predictions_per_seq
