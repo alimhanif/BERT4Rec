@@ -3,6 +3,7 @@ import argparse
 import pandas as pd
 import glob
 import os
+from tqdm import tqdm 
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -21,12 +22,12 @@ def write_file(input_file, output_file):
     df = pd.read_csv(input_file)
     df["product_sequence"] = df["product_sequence"].apply(lambda x : x.split(","))
     with open(output_file, "a") as f:
-        for index, row in df.iterrows():
+        for index, row in tqdm(df.iterrows(), total=len(df), desc='Iterrows'):
             write_row(row, f)
 
 def write_all(input_pattern, output_file):
     input_paths = glob.glob(input_pattern)
-    for i, file in enumerate(input_paths):
+    for i, file in tqdm(enumerate(input_paths), desc='File'):
         write_file(file, output_file)
         print("File %d done!" % (i+1))
 
